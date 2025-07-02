@@ -1,0 +1,12 @@
+kube-prometheus-stack:
+  grafana:
+    adminPassword: "admin"
+    service:
+      type: LoadBalancer
+    ingress:
+      enabled: true
+      hosts:
+        - grafana.example.com
+  prometheus:
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false

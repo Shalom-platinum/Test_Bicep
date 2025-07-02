@@ -1,0 +1,43 @@
+trigger:
+- main
+
+variables:
+  location: 'eastus'
+  resourceGroupName: 'myResourceGroup'
+
+stages:
+- stage: Deploy
+  displayName: Deploy Infrastructure
+  jobs:
+  - job: BicepDeployment
+    displayName: Deploy Azure Resources
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: '<your-service-connection>'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          az group create --name $(resourceGroupName) --location $(location)
+          az deployment group create \
+            --resource-group $(resourceGroupName) \
+            --template-file ./bicep/main.bicep \
+            --parameters @./bicep/parameters/dev.parameters.json
+
+- stage: DeployHelmAndApps
+  dependsOn: Deploy
+  jobs:
+  - job: HelmDeployments
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: |
+        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
+        helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --namespace monitoring --create-namespace
+      displayName: 'Deploy Helm Charts'
+
+    - script: |
+        kubectl apply -f ./manifests/hpa.yaml
+      displayName: 'Deploy HPA'

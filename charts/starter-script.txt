@@ -1,0 +1,7 @@
+# Install Prometheus + Grafana
+helm dependency update ./charts/prometheus-grafana
+helm upgrade --install prometheus-grafana ./charts/prometheus-grafana --namespace monitoring --create-namespace
+
+# Install Ingress-NGINX
+helm dependency update ./charts/ingress-nginx
+helm upgrade --install ingress-nginx ./charts/ingress-nginx --namespace ingress-nginx --create-namespace

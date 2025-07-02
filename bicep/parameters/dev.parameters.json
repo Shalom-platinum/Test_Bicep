@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "resourceGroupName": { "value": "dev-rg" },
+      "location": { "value": "westus2" },
+      "vnetAddressPrefix": { "value": "10.0.0.0/16" },
+      "publicSubnetPrefix": { "value": "10.0.1.0/24" },
+      "privateACISubnetPrefix": { "value": "10.0.2.0/24" },
+      "privateAKSSubnetPrefix": { "value": "10.0.3.0/24" },
+      "aksClusterName": { "value": "dev-aks-cluster-234028" },
+      "acrName": { "value": "devacr234028" },
+      "keyVaultName": { "value": "dev-kv-234028" },
+      "sqlServerName": { "value": "devsqlserver234028" },
+      "sqlDatabaseNameAPI": { "value": "api-db" },
+      "sqlDatabaseNameAUTH": { "value": "auth-db" },
+      "sqlAdminUsername": { "value": "sqladminuser" },
+      "sqlAdminPassword": { "value": "P@ssw0rd1234!" },
+      "containerInstanceName": { "value": "devcontainer234028" },
+      "servicePrincipalId": { "value": "4704213d-33b5-469d-84c5-72ea35c21bcc" },
+      "servicePrincipalSecret": {"value": "f358Q~p64SZ.FvQG-Yfbw1ahnyzFdJLeOk_PwdcI"}
+      // "aksServicePrincipalId": { "value": "" }, 
+      // "aksServicePrincipalSecret": {
+      //   "value": "", 
+      //   "secure": true
+      // }
+    }
+  }
+
+  

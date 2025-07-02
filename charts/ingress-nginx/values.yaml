@@ -1,0 +1,15 @@
+ingress-nginx:
+  controller:
+    replicaCount: 2
+    service:
+      annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      loadBalancerIP: ""  # Optional: add a static IP if you reserved one
+    ingressClassResource:
+      name: nginx
+    admissionWebhooks:
+      enabled: true
+    metrics:
+      enabled: true
+    nodeSelector:
+      kubernetes.io/os: linux
